@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+
+{% block item %}
+<div class="product-container">
+
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='img/' + product.image_product) }}" alt="" class="product-image">
+    </div>
+
+</div>
+
+<div class="info-container">
+
+    <div class="brand">
+        <a href="#">{{ product.brand_product.brand_name }}</a>
+    </div>
+
+    <div class="shoes-name">
+        <small><b>{{ product.name }}</b></small>
+    </div>
+
+    <div class="price">
+        <p class="price">Now at Php {{ product.price }}</p>
+    </div>
+
+    <div class="rating">
+        <span
+            onclick="valueSubmit();">&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
+
+        <p class="reviews">Customer Reviews</p>
+    </div>
+
+    <div class="img-brand">
+        <img src="{{ url_for('static', filename='img/adidas.png') }}" alt="">
+    </div>
+
+    <div class="feature_list">
+        <ul>
+            {% for feature in features %}
+                <li class="feature mt-2">
+                    {{ feature }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="authentic ml-3">
+        <span>100% Authentic</span>
+    </div>
+
+    <div class="selectSize ml-3 mt-2">
+        <span>Select Size</span>
+    </div>
+
+    <div class="ml-3" style="position: relative;width: 190px;display: flex;align-items: center;justify-content: flex-start; margin: 10px 0px 20px;cursor:pointer;"
+        id="pifSizeSelectionIcon">
+
+        <div style="height: 15px;min-width: 15px; margin-right: 5px;display:flex;justify-content:center;align-items: center;">
+            <div style="background:url('https://cdn.pixibo.com/clients/zalora/p/34/assets/images/sprite.png') -42px -12px no-repeat;height: 100%;width: 100%;background-size: 400px 150px;">
+            </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-start;align-items: center;display: flex; flex-wrap: wrap; ">
+            <div style="color: #037f7f; text-decoration: underline; text-decoration-color: #037f7f; font-size:12px;letter-spacing: 0.8px;line-height: 15px;display: flex; flex-wrap: wrap; ">FIND MY SIZE</div>
+        </div>
+
+    </div>
+
+    <div class="sizes">
+        <select name="" id="size_name" style="width: 100px; margin-right: 10px;">
+            
+            {% for k in size_name %}
+                <option value="{{ k }}">{{ k }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="" id="size_num" style="width: 100px; margin-right: 10px;">
+            <option value="size">size</option>
+
+            {% for v in size_num %}
+                <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+    <hr>
+    
+    <div class="form-button">
+        <div class="button-container">
+            <!-- /checkout -->
+            <a href="#"><button type="button" class="btn btn-outline-primary" onclick="add_to_bag()">ADD TO BAG</button></a>
+        </div>
+
+        <div class="social-media">
+
+            <div class="share-icon">
+                <h6 class="share">SHARE</h6>
+            </div>
+            
+            <div class="social-media-icon">
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-google"></i></a>
+                <a href=""><i class="far fa-envelope"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- <div>
+       
+    </div> -->
+</div>
+{% endblock %}
+
+{% block contentScripts %}
+<script>
+
+    function add_to_bag(){
+        
+        let size_num = document.getElementById("size_num").value
+        
+        let checkout = true
+        if (size_num == 'size'){
+
+            let p = `
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <p>Please Choose The Size</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `
+            document.querySelector('.col-md-8').insertAdjacentHTML('beforebegin', p)
+            checkout = false
+        }
+
+        if (checkout){
+            get_product_id = window.location.href;
+            get_product_id = get_product_id.split("/")
+
+
+            const sentRequest = {
+                brand:`{{ product.brand_product.brand_name }}`,
+                name:`{{ product.name }}`,
+                price:`{{ product.price }}`,
+                size_num:document.getElementById('size_num').value,
+                size_name:document.getElementById('size_name').value,
+                img_id:get_product_id[4]
+            }
+
+
+            let myHeaders = new Headers()
+            myHeaders.append('Content-Type', 'application/json')
+
+            let myInit = {
+                method:'POST',
+                credentials:"include",
+                body:JSON.stringify(sentRequest),
+                headers:myHeaders,
+                cache:"no-cache",
+                
+            }
+
+            const myRequests = new Request('http://127.0.0.1:5000/protected')
+
+            fetch(myRequests, myInit)
+            
+        }
+
+    }
+
+</script>
+{% endblock %}

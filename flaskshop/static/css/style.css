@@ -1,0 +1,304 @@
+.flex-wrap {
+    margin-left: 150px;
+}
+
+.card {
+    margin: 10px;
+    position: relative;
+}
+
+.center-bottom {
+    opacity: 1;
+}
+.center-bottom {    
+    position: absolute;
+    top: 49%;
+    left: 58%;
+}
+.card-title {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.card-img-top {
+    border-radius: 10px;
+}
+
+.card-text {
+    float: right;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.card-img-top:hover {
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+}
+
+.border-top {
+    margin-left: 100px;
+}
+
+.alert {
+    text-align: center;
+    width: 100%;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.product-image {
+    margin-top: 20px;
+    width: 346px;
+    height: 500px;
+    border-radius: 20px;
+    
+}
+
+.product-container {
+    margin-top: 20px;
+}
+
+.info-container {
+    background: white;
+    width: 400px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border: 1px solid black;
+}
+
+.brand {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 150px;
+}
+
+.brand > a{
+    color: black;
+    font-family: 'Nanum Gothic', sans-serif;
+    text-decoration: none;
+    letter-spacing: 3px;
+}
+
+.brand > a:hover {
+    border-bottom: 2px solid black;
+}
+
+.price {
+    margin-left: 10px;
+    width: 150px;
+}
+
+.price > p {
+    font-size: 15px;
+}
+
+.shoes-name {
+    margin-left: 20px;
+    width: 150px;
+}
+
+.shoes-name > small {
+    letter-spacing: 1px;
+}
+
+.rating > span:hover:before{
+    content: "\2605";
+    position: absolute;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    width: 200px;
+    margin-left: 20px;
+}
+
+.rating > span:hover:before, .rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}
+
+.reviews {
+    float: right;
+    margin-right: 45px;
+    margin-top: 7px;
+    font-size: 10px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.img-brand {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.feature_list {
+    margin-bottom: 0px;
+}
+ul > li.feature{
+    list-style-type: circle;
+    font-size: 13px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.authentic > span {
+    letter-spacing: 1px;
+    
+}
+
+.authentic {
+    margin-top: 0px;
+}
+
+.selectSize > span {
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+} 
+
+.sizes {
+    display: flex;
+    margin-left: 20px;
+}
+
+.form-button {
+    margin-left: 20px;
+    display: flex;
+}
+
+.social-media {
+    margin-left: 10px;
+    width: 200px;
+}
+
+.social-media-icon {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.share-icon {
+    text-align: center;
+}
+
+#main{
+    border: 1px solid #dddddd;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#title-bar{
+    height: 60px;
+    display: flex;
+    background: #dfdfdf;
+}
+
+#title{
+    color: black;
+}
+
+#title-bar > p {
+    padding: 20px;
+}
+
+#buyButton {
+    margin-left: 67.5%;
+}
+.product_history{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    margin-left: -40px;
+}
+
+.contact{
+    border: 1px solid #dddddd;
+    width: 230px;
+    height: 190px;
+}
+
+.name{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 12px;
+}
+
+.left_info{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.article-img{
+    height: 100px;
+    width: 100px;
+}
+
+.product_img{
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+.selling-content{
+    display: flex;
+    flex-direction: row;
+}
+
+.product_feature{
+    margin-left: 150px;
+    margin-top: -120px;
+}
+
+.features{
+    list-style-type: circle;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.product_feature > p ~ ul > li:first-child{
+    margin-top: -10px;
+}
+
+.product_size{
+    margin-left: 350px;
+    margin-top: -80px;
+}
+
+.product_size > p ~ ul{
+    margin-top: -10px;
+    margin-left: -20px;
+}
+
+.size{
+    list-style-type: circle;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+#sizeNum {
+    margin-top: 22%;
+}
+
+.pagination{
+    margin:0 auto;
+
+}
+
+#checkout-section{
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.product_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

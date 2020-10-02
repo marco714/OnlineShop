@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="mt-2" id="main">
+        <div id="title-bar">
+            <p class="h6">
+                <small id="title">Checkout Products</small>
+            </p>
+
+            <button class="btn btn-success" id="buyButton"><a href="{{ url_for('buy_checkout') }}" style="text-decoration: none; color: black;">Buy Now</a></button>
+
+        </div>
+
+        {% for k, v in product.items() %}
+            <div id="selling_product">
+                <p style="display: none;">{{ k }}</p>
+                <ul>
+                    <li class="product_history">
+
+                        <div class="contact">
+                            
+                            <div class="info">
+
+                                <div class="product_name">
+                                    <p class="left_info"><span class="text-muted">Product Name: </span><span style="font-weight: bold;" class="product_detail">{{ v['name'] }}</span></p>
+                                </div>
+
+                                <div class="product_price">
+                                    <p class="left_info"><span class="text-muted">Product Price: </span><span style="font-weight: bold;" class="product_detail">Php {{ v['price'] }}</span></p>
+                                </div>
+
+                                <div class="product_quantity">
+                                    <p class="left_info"><span class="text-muted">Product Brand: </span><span style="font-weight: bold;" class="product_detail">{{ v['brand'] }}</span></p>
+                                </div>
+                                
+                                <button class="btn btn-danger" style="margin-left: 30%;" onclick="deleteItem(this)" id="deleteButton">Delete</button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="selling_content">
+
+                            <div class="product_img">
+                                <img class="product_detail rounded-circle article-img" src="{{ url_for('static', filename='img/' + v['image_name']) }}" alt="">
+
+                            </div>
+
+                            <div class="product_feature">
+                                <h5 id="sizeName">Size Name</h5>
+                                <ul>
+                                    <li>
+                                        {{ v['size_name'] }}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="product_size">
+                                <h5 id="sizeNum">Size Number</h5>
+                                <ul>
+                                    <li>
+                                        {{ v['size_num'] }}
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block contentScripts %}
+    <script>
+
+        document.getElementById('buyButton').addEventListener('click', buyProduct)
+
+        function deleteItem(e){
+            
+            e.parentElement.parentElement.parentElement.parentElement.parentElement.remove()
+            
+            
+            const sentRequest = {
+                deleteItem: e.parentElement.parentElement.parentElement.parentElement.previousElementSibling.innerHTML
+            }
+
+            let myHeaders = new Headers()
+            myHeaders.append('Content-Type', 'application/json')
+
+
+            let myInit = {
+                method:'POST',
+                credentials:"include",
+                body:JSON.stringify(sentRequest),
+                headers:myHeaders,
+                cache:"no-cache",
+            }
+
+            const myRequests = new Request('http://127.0.0.1:5000/checkout')
+
+            fetch(myRequests, myInit)
+
+        }
+
+        function buyProduct(){
+            
+            let name = document.getElementsByClassName('product_detail')
+            let domDataLength = name.length
+            let product_list = new Array(domDataLength)
+
+            // for (let i=0; i<name.length; i++){
+            //     console.log(name[i])
+            // }
+
+
+            for (let i=0; i<domDataLength; i++){
+                product_list[i] = name[i]
+            }
+            
+            var size = 4; var arrayOfArrays = [];
+            for (var i=0; i<product_list.length; i+=size) {
+                arrayOfArrays.push(product_list.slice(i,i+size));
+            }
+
+            let sentRequest = {}
+            let item = 0
+
+           for (let i=0; i<arrayOfArrays.length; i++){
+
+                sentRequest[`Item${item}`] = {
+                    "brand_name":arrayOfArrays[i][2].innerHTML,
+                    "name":arrayOfArrays[i][0].innerHTML,
+                    "price":arrayOfArrays[i][1].innerHTML,
+                    "image_src":arrayOfArrays[i][3].src
+                }
+
+                item += 1
+            } 
+
+            let myHeaders = new Headers()
+            myHeaders.append('Content-Type', 'application/json')
+
+            let myInit = {
+                method:'POST',
+                credentials:"include",
+                body:JSON.stringify(sentRequest),
+                headers:myHeaders,
+                cache:"no-cache",
+            }
+
+            const myRequests = new Request('http://127.0.0.1:5000/buy_checkout')
+
+            fetch(myRequests, myInit)   
+        }   
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block item %}
+
+    {% for item in post_items.items %}
+
+        <div class="card" style="width: 18rem; border:none;">
+            <img src="{{ url_for('static', filename='img/' + item.image_product) }}" class="card-img-top" alt="...">
+            <div class="center-bottom">Available Size</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ item.brand_product.brand_name }}</h5>
+                <hr>
+                <p class="h6 text-muted">{{ item.name }}</p>
+                <p class="card-text">Price At: Php {{ item.price }} </p>
+                <a href="{{ url_for('product', product_id=item.id) }}" class="btn btn-primary">Choose This Item</a>
+
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock item %}
+
+{% block paginate %}
+
+    {% for page_num in post_items.iter_pages() %}
+        {% if page_num %}
+
+            {% if post_items.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+    <div class="mt-2" id="main">
+        <div id="title-bar">
+            <p class="h6">
+                <small id="title">Your Selling Product History</small>
+            </p>
+        </div>
+        
+        {% for product in seller.product %}
+            <div id="selling_product">
+                <ul>
+
+                    <li class="product_history">
+
+                        <div class="contact">
+
+                            <div class="info">
+
+                                <div class="product_name">
+                                    <p class="left_info"><span class="text-muted">Product Name: </span><span style="font-weight: bold;">{{ product.name }}</span></p>
+                                </div>
+                                
+                                <div class="product_price">
+                                    <p class="left_info"><span class="text-muted">Product Price: </span><span style="font-weight: bold;">Php {{ product.price }}</span></p>
+                                </div>
+
+                                <div class="product_quantity">
+                                    <p class="left_info"><span class="text-muted">Product Quantity: </span><span style="font-weight: bold;">{{ product.quantity }}</span></p>
+                                </div>
+
+                                <div class="product_username">
+                                    <p class="left_info"><span style="font-weight: bold; margin-left: 30px;">{{ product.seller_item.username }}</span></p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="selling_content">
+
+                            <div class="product_img">
+
+                                <img class="rounded-circle article-img" src="{{ url_for('static', filename='img/' + product.image_product) }}" alt="">
+
+                            </div>
+
+                            <div class="product_feature">
+                                    <p>Features</p>
+                                    <ul>
+                                        {% for feature in product.feature[0].feature | features %}
+                                            <li class="features">{{ feature }}</li>
+                                        {% endfor %}
+                                    </ul>
+
+                            </div>
+
+                            <div class="product_size">
+                                    <p>Available Sizes</p>
+                                    <ul>
+                                        {% for size in product.size %}
+                                            {% for size_shoes in size.size_name | size(size.size_number) %}
+                                                <li class="size">{{ size_shoes }}</li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                </ul>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
